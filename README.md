@@ -2,7 +2,7 @@
 
 ## **Plataforma para hacer un seguimiento de tu ejercicio físico**
 
-## 1.- Esta plataforma va a constar de las siguientes entidades:
+## 1.- Entidades:
 
 - `.Usuarios` - Los cuales, van a poder signup en la app y hacer login. - Van a requerir de los siguientes datos
   personales:
