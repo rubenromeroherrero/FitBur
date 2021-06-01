@@ -3,6 +3,12 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+# Descartamos archivos a subir
+node_modules
+.env
+fitburApp.sql
+
+
 # User-specific files
 *.rsuser
 *.suo
@@ -348,3 +354,4 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+
