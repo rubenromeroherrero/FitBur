@@ -1,5 +1,6 @@
 const { DataTypes } = require("sequelize");
 const dbConnection = require("../config/db");
+const { ROLE } = require("../util/constants");
 
 const User = dbConnection.define(
   "User",
@@ -19,7 +20,7 @@ const User = dbConnection.define(
     },
     role: {
       type: DataTypes.STRING(10),
-      defaultValue: "user",
+      defaultValue: ROLE.USER,
     },
     name: {
       type: DataTypes.STRING,

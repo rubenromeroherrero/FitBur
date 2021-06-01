@@ -1,4 +1,5 @@
 const express = require("express");
+const roleValidation = require("../middlewares/roleValidation");
 const router = express.Router();
 const userService = require("../services/userService");
 
@@ -24,7 +25,7 @@ router.post("/login", async (req, res, next) => {
 });
 
 // GET ALL USERS
-router.get("/all", async (req, res, next) => {
+router.get("/all", roleValidation(""), async (req, res, next) => {
   try {
     const user = await userService.getAllUsers();
     res.status(200).json(user);
@@ -34,7 +35,7 @@ router.get("/all", async (req, res, next) => {
 });
 
 // EDIT
-router.put("/", async (req, res, next) => {
+router.put("/", roleValidation("user"), async (req, res, next) => {
   try {
     // necesitamos poner la authorization para poder modificar los datos
     // cogemos de ese token (req.user) loggeado el id
@@ -47,7 +48,7 @@ router.put("/", async (req, res, next) => {
 });
 
 // DELETE
-router.delete("/", async (req, res, next) => {
+router.delete("/", roleValidation("user"), async (req, res, next) => {
   try {
     await userService.removeUser(req.user);
     res.sendStatus(201);
