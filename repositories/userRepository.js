@@ -18,8 +18,8 @@ exports.findUserWithPasswordByEmail = async (email) => {
   return await User.scope("withPassword").findOne({ where: { email } });
 };
 
-exports.findUserByNickname = async (nickname) => {
-  return await User.findOne({ where: { nickname } });
+exports.findUserByName = async (name) => {
+  return await User.findOne({ where: { name } });
 };
 
 // INSERT

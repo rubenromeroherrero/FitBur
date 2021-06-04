@@ -9,22 +9,23 @@ router.post("/signup", async (req, res, next) => {
     await userService.signup(req.body);
     res.sendStatus(201);
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    res.sendStatus(400).json({ message: error.message });
   }
 });
 
 // LOGIN
 router.post("/login", async (req, res, next) => {
   try {
-    // necesitamos retornar un user(formato token)
+    // necesitamos retornar un user(formato token) --> nos permitirá realizar los put, get, delete
     const user = await userService.login(req.body);
+    // mostrar token
     res.status(200).json(user);
   } catch (error) {
     res.sendStatus(400).json({ message: error.message });
   }
 });
 
-// GET ALL USERS
+// GET ALL USERS --> solo el admin puede solicitar ver todos los usuarios de la app
 router.get("/all", roleValidation(""), async (req, res, next) => {
   try {
     const user = await userService.getAllUsers();

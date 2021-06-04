@@ -6,7 +6,7 @@ const { promisify } = require("util");
 const encripter = promisify(crypto.scrypt);
 
 const encryptPassword = async (password) => {
-  // invocamos la funcion que nos permite encriptar
+  // invocamos la funcion que nos permite encriptar //codigo de seguridad SALT
   const encryptedPassword = await encripter(password, process.env.SALT, 32);
 
   // transformar a formato string hexadecimal --> para manipularlo y poder entenderlo

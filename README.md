@@ -2,7 +2,7 @@
 
 ## **Plataforma para hacer un seguimiento de tu ejercicio físico**
 
-## 1.- Entidades:
+### 1.- Entidades:
 
 - `.Usuarios` - Los cuales, van a poder signup en la app y hacer login. - Van a requerir de los siguientes datos
   personales:
@@ -43,7 +43,7 @@
   - **Valoración** - publico/requerido (0-5 puntos)
   - **UserId** - publico/requerido (extraemos el nickname del UserId)
 
-## 2.-Modelo negocio:
+### 2.-Modelo negocio:
 
 - Idea Javier => en el front un formulario, en el cual introducir los datos del usuario. En función de los datos
   introducidos, mostrarle la rutina aconsejada. Esas rutinas estarían implementadas en nuestra DB.
@@ -62,7 +62,7 @@
   - **11** - Editar un comentario
   - **12** - Eliminar un comentario
 
-## 3.- Librerías requeridas para este proyecto:
+### 3.- Librerías requeridas para este proyecto:
 
 - Dependencias:
 

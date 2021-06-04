@@ -9,6 +9,7 @@ const loadModels = require("./models/relationship");
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
+const routinesRouter = require("./routes/routines");
 // MIDDLEWARE -> validaciones para token
 const tokenValidation = require("./middlewares/tokenValidation");
 
@@ -26,5 +27,6 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
+app.use("/routines", routinesRouter);
 
 module.exports = app;

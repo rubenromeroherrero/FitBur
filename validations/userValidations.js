@@ -2,6 +2,7 @@ const Joi = require("joi");
 
 exports.insertUserSchema = Joi.object({
   email: Joi.string().email().required(),
+  // 8 caracteres (entre ellos 1 minuscula y 1 mayuscula)
   password: Joi.string()
     .regex(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,15}$/)
     .required(),

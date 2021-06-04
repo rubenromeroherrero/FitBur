@@ -26,13 +26,14 @@ exports.signup = async (user) => {
 exports.login = async ({ email, password }) => {
   if (!email || !password) throw new Error("Invalid data provided");
 
-  // buscar si existe ese usuario
+  // buscar si existe ese usuario en la DB
   const user = await userRepository.findUserWithPasswordByEmail(email);
 
   if (!user) throw new Error("Not found user");
 
   const encryptedPassword = await encryptPassword(password);
 
+  // comprobamos si ese usuario de la DB coincide con la pass que introduce
   if (user.password !== encryptedPassword) throw new Error("Wrong password");
 
   // generar un token que es lo que nos va a devolver, HACE QUE LA INFO DEL USER NO SE PUEDA INTERPRETAR
