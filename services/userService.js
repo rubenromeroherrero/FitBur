@@ -49,7 +49,16 @@ exports.getAllUsers = async () => {
 };
 
 // GET ONE USER
-exports.getUser = async (user) => {};
+exports.getUser = async (user) => {
+  // obtenemos el id del token
+  const userId = user.id;
+
+  const userDb = await userRepository.findUserById(userId);
+
+  if (!userDb) throw new Error();
+
+  return userDb.toJSON();
+};
 
 // EDIT PROFILE USER
 exports.editUser = async (id, userDetails) => {

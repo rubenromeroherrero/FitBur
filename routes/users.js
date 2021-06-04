@@ -35,6 +35,17 @@ router.get("/all", roleValidation(""), async (req, res, next) => {
   }
 });
 
+// GET ONE USER --> sin password, porque lo tenemos definido en la entity User
+router.get("/", roleValidation(""), async (req, res, next) => {
+  try {
+    const { id } = req.body;
+    const user = await userService.getUser(req.user, id);
+    res.status(200).json(user);
+  } catch (error) {
+    res.sendStatus(400).json({ message: error.message });
+  }
+});
+
 // EDIT
 router.put("/", roleValidation("user"), async (req, res, next) => {
   try {

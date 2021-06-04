@@ -35,9 +35,9 @@ router.post("/", roleValidation("user"), async (req, res, next) => {
 });
 
 // EDIT ROUTINE
-router.put("/:id", roleValidation("user"), async (req, res, next) => {
+router.put("/", roleValidation("user"), async (req, res, next) => {
   try {
-    const { id } = req.params;
+    const { id } = req.body;
     await routineService.editRoutine(req.user, req.body, id);
     res.sendStatus(204);
   } catch (error) {
@@ -46,9 +46,9 @@ router.put("/:id", roleValidation("user"), async (req, res, next) => {
 });
 
 // DELETE ROUTINE
-router.delete("/:id", roleValidation("user"), async (req, res, next) => {
+router.delete("/", roleValidation("user"), async (req, res, next) => {
   try {
-    const { id } = req.params;
+    const { id } = req.body;
     await routineService.removeRoutine(req.user, id);
     res.sendStatus(201);
   } catch (error) {

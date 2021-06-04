@@ -5,7 +5,7 @@ const {
 const routineRepository = require("../repositories/routineRepository");
 
 // GET ALL ROUTINES
-exports.getAllRoutines = async (user) => {
+exports.getAllRoutines = async () => {
   return await routineRepository.findAllRoutines();
 };
 
