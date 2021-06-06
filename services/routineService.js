@@ -29,6 +29,8 @@ exports.getRoutineById = async (id) => {
 exports.createRoutine = async (routine) => {
   const routineValidation = await insertRoutineSchema.validateAsync(routine);
 
+  if (!routineValidation) throw new Error();
+
   await routineRepository.insertRoutine(routineValidation);
 };
 

@@ -8,3 +8,8 @@ exports.ROUTINE_VISIBILITY = Object.freeze({
   PUBLIC: "public",
   PRIVATE: "private",
 });
+
+exports.ACTIVITY_VISIBILITY = Object.freeze({
+  PUBLIC: "public",
+  PRIVATE: "private",
+});

@@ -35,9 +35,9 @@ router.post("/", roleValidation("user"), async (req, res, next) => {
 });
 
 // EDIT ROUTINE
-router.put("/", roleValidation("user"), async (req, res, next) => {
+router.put("/:id", roleValidation("user"), async (req, res, next) => {
   try {
-    const { id } = req.body;
+    const { id } = req.params;
     await routineService.editRoutine(req.user, req.body, id);
     res.sendStatus(204);
   } catch (error) {

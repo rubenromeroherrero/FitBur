@@ -13,8 +13,9 @@ const Routine = require("../models/Routine");
 //   ],
 // };
 
-// --> buscar todos los posts del usuario loggeado
+// --> buscar todos los posts del usuario loggeado?????
 
+// FIND
 exports.findAllRoutines = async () => {
   // filtro solo los public
   return await Routine.findAll({

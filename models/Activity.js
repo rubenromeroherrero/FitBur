@@ -1,6 +1,6 @@
 const { DataTypes } = require("sequelize");
 const dbConnection = require("../config/db");
-const { ROUTINE_VISIBILITY } = require("../util/constants");
+const { ACTIVITY_VISIBILITY } = require("../util/constants");
 
 const Activity = dbConnection.define("Activity", {
   id: {
@@ -22,8 +22,8 @@ const Activity = dbConnection.define("Activity", {
     type: DataTypes.TINYINT.UNSIGNED, // seconds 255 minutes
   },
   visibility: {
-    type: DataTypes.ENUM(Object.values(ROUTINE_VISIBILITY)),
-    defaultValue: ROUTINE_VISIBILITY.PUBLIC,
+    type: DataTypes.ENUM(Object.values(ACTIVITY_VISIBILITY)),
+    defaultValue: ACTIVITY_VISIBILITY.PUBLIC,
   },
 });
 

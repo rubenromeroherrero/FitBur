@@ -11,7 +11,7 @@ var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 const routinesRouter = require("./routes/routines");
 const activitiesRouter = require("./routes/activities");
-// MIDDLEWARE -> validaciones para token
+// MIDDLEWARE -> validaciones para token -->  ???????
 const tokenValidation = require("./middlewares/tokenValidation");
 
 var app = express();
