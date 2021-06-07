@@ -14,20 +14,20 @@ exports.getAllComments = async (user) => {
 // FIND COMMENT BY ID
 exports.getComment = async (user, id) => {
   // comprobamos si existe ese comment
-  const comment = await commentRepository.findCommentById(id);
+  const commentDb = await commentRepository.findCommentById(id);
 
-  if (!comment) throw new Error();
+  if (!commentDb) throw new Error();
 
-  // si la persona loggeada quiere acceder a un comentario privado de otra persona lanzamos error
-  // en el caso de ser admin le admitimos ver los comments (privados y públicos)
   if (
-    comment.UserId !== user.id &&
-    comment.visibility !== "public" &&
+    commentDb.UserId !== user.id &&
+    commentDb.visibility !== "public" &&
     user.role !== "admin"
   )
-    throw new Error();
+    throw new Error(
+      "You can't watch this routine, because it's private. You must logging with correctly account"
+    );
 
-  return comment.toJSON();
+  return commentDb.toJSON();
 };
 
 // CREATE COMMENT

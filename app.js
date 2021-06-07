@@ -12,6 +12,7 @@ var usersRouter = require("./routes/users");
 const routinesRouter = require("./routes/routines");
 const activitiesRouter = require("./routes/activities");
 const commentsRouter = require("./routes/comments");
+const errorHandler = require("./middlewares/errorHandler");
 // MIDDLEWARE -> validaciones para token -->  ???????
 const tokenValidation = require("./middlewares/tokenValidation");
 
@@ -32,5 +33,7 @@ app.use("/users", usersRouter);
 app.use("/routines", routinesRouter);
 app.use("/activities", activitiesRouter);
 app.use("/comments", commentsRouter);
+
+app.use(errorHandler);
 
 module.exports = app;

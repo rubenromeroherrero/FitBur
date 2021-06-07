@@ -23,11 +23,9 @@ exports.getActivity = async (user, id) => {
     activityDb.visibility !== "public" &&
     user.role !== "admin"
   )
-    throw new Error("aaa");
-
-  // // comprobamos que esa actividad es del usuario que la solicita
-  // if (activityDb.UserId !== user.id)
-  //   throw new Error("You don't have permission to watch this activity");
+    throw new Error(
+      "You can't watch this routine, because it's private. You must logging with correctly account"
+    );
 
   return activityDb.toJSON();
 };

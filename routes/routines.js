@@ -9,7 +9,7 @@ router.get("/all", roleValidation("user"), async (req, res, next) => {
     const routines = await routineService.getAllRoutines(req.user);
     res.status(200).json(routines);
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    next(error);
   }
 });
 
@@ -20,7 +20,7 @@ router.get("/:id", roleValidation("user"), async (req, res, next) => {
     const user = await routineService.getRoutineById(req.user, id);
     res.status(200).json(user);
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    next(error);
   }
 });
 
@@ -30,7 +30,7 @@ router.post("/", roleValidation("user"), async (req, res, next) => {
     await routineService.createRoutine(req.body);
     res.sendStatus(201);
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    next(error);
   }
 });
 
@@ -40,7 +40,7 @@ router.put("/", roleValidation("user"), async (req, res, next) => {
     await routineService.editRoutine(req.user, req.body);
     res.sendStatus(204);
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    next(error);
   }
 });
 
@@ -51,7 +51,7 @@ router.delete("/", roleValidation("user"), async (req, res, next) => {
     await routineService.removeRoutine(req.user, id);
     res.sendStatus(201);
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    next(error);
   }
 });
 

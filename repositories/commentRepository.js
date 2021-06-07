@@ -14,6 +14,7 @@ exports.findAllComments = async (filter) => {
 // FIND ONE COMMENT
 exports.findCommentById = async (id) => {
   return await Comment.findByPk(id, {
+    where: { visibility: ["public"] },
     include: [{ model: User, attributes: ["name"] }, { model: Routine }],
   });
 };
