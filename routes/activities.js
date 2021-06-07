@@ -6,7 +6,7 @@ const roleValidation = require("../middlewares/roleValidation");
 // GET ALL ACTIVITIES
 router.get("/all", roleValidation("user"), async (req, res, next) => {
   try {
-    const activities = await activityService.getAllActivities();
+    const activities = await activityService.getAllActivities(req.user);
     res.status(200).json(activities);
   } catch (error) {
     res.status(400).json({ message: error.message });

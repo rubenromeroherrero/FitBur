@@ -3,10 +3,10 @@ const roleValidation = require("../middlewares/roleValidation");
 const router = express.Router();
 const routineService = require("../services/routineService");
 
-// GET ALL ROUTINES --> solo el admin (private, public)
-router.get("/all", roleValidation(""), async (req, res, next) => {
+// GET ALL ROUTINES --> solo el admin (private, public), los users no pueden ver todas las rutinas
+router.get("/all", roleValidation("user"), async (req, res, next) => {
   try {
-    const routines = await routineService.getAllRoutines();
+    const routines = await routineService.getAllRoutines(req.user);
     res.status(200).json(routines);
   } catch (error) {
     res.status(400).json({ message: error.message });

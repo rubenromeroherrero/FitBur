@@ -3,10 +3,10 @@ const Routine = require("../models/Routine");
 const User = require("../models/User");
 
 // FIND ALL COMMENTS
-exports.findAllComments = async () => {
+exports.findAllComments = async (filter) => {
+  const where = filter ? { visibility: "public" } : {};
   return await Comment.findAll({
-    // así sólo puede verlo el usuario que lo crea o el admin
-    // where: { visibility: ["public"] },
+    where,
     include: [{ model: User, attributes: ["name"] }, { model: Routine }],
   });
 };

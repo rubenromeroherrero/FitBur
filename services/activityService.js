@@ -5,8 +5,10 @@ const {
 } = require("../validations/activityValidations");
 
 // GET ALL ACTIVITIES
-exports.getAllActivities = async () => {
-  return await activityRepository.findAllActivities();
+exports.getAllActivities = async (user) => {
+  // filtro ADMIN (public,private) USER(public)
+  const filter = user?.role === "user";
+  return await activityRepository.findAllActivities(filter);
 };
 
 // GET ACTIVITY

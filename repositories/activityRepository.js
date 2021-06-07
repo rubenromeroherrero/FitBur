@@ -3,9 +3,10 @@ const Routine = require("../models/Routine");
 const User = require("../models/User");
 
 // FIND ALL
-exports.findAllActivities = async () => {
+exports.findAllActivities = async (filter) => {
+  const where = filter ? { visibility: "public" } : {};
   return await Activity.findAll({
-    where: { visibility: ["public"] },
+    where,
     include: [
       { model: User, attributes: ["name"] },
       { model: Routine, attributes: ["title"] },

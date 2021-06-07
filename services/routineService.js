@@ -5,8 +5,10 @@ const {
 const routineRepository = require("../repositories/routineRepository");
 
 // GET ALL ROUTINES
-exports.getAllRoutines = async () => {
-  return await routineRepository.findAllRoutines();
+exports.getAllRoutines = async (user) => {
+  // filtro ADMIN (public,private) USER(public)
+  const filter = user?.role === "user";
+  return await routineRepository.findAllRoutines(filter);
 };
 
 // --> buscar todos los posts del usuario loggeado ???????

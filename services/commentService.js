@@ -5,9 +5,10 @@ const {
 } = require("../validations/commentValidation");
 
 // FIND ALL COMMENTS
-exports.getAllComments = async () => {
+exports.getAllComments = async (user) => {
+  const filter = user?.role === "user";
   // en el repositorio filtramos los públicos
-  return await commentRepository.findAllComments();
+  return await commentRepository.findAllComments(filter);
 };
 
 // FIND COMMENT BY ID

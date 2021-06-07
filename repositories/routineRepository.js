@@ -3,15 +3,15 @@ const User = require("../models/User");
 const Routine = require("../models/Routine");
 const Activity = require("../models/Activity");
 const Comment = require("../models/Comment");
-// const { ROUTINE_VISIBILITY } = require("../util/constants");
 
 // --> buscar todos los posts del usuario loggeado?????
 
 // FIND
-exports.findAllRoutines = async () => {
-  // filtro solo los public
+exports.findAllRoutines = async (filter) => {
+  // filtro ADMIN (public,private) USER(public)
+  const where = filter ? { visibility: "public" } : {};
   return await Routine.findAll({
-    //where: { visibility: ["public"] }, // filtramos las públicas ------------>??????????????????????????????????????????????????? --> cuando quito el roleValidation para solo admin, muestra solo las public
+    where,
     include: [
       { model: User, attributes: ["name"] },
       { model: Comment },
