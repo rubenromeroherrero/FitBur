@@ -9,18 +9,18 @@ router.get("/all", roleValidation(""), async (req, res, next) => {
     const routines = await routineService.getAllRoutines();
     res.status(200).json(routines);
   } catch (error) {
-    res.sendStatus(400).json({ message: error.message });
+    res.status(400).json({ message: error.message });
   }
 });
 
-// GET ONE ROUTINE
+// GET ONE ROUTINE --> el get no tiene req.body
 router.get("/:id", roleValidation("user"), async (req, res, next) => {
   try {
     const { id } = req.params;
     const user = await routineService.getRoutineById(req.user, id);
     res.status(200).json(user);
   } catch (error) {
-    res.sendStatus(400).json({ message: error.message });
+    res.status(400).json({ message: error.message });
   }
 });
 
@@ -30,18 +30,17 @@ router.post("/", roleValidation("user"), async (req, res, next) => {
     await routineService.createRoutine(req.body);
     res.sendStatus(201);
   } catch (error) {
-    res.sendStatus(400).json({ message: error.message });
+    res.status(400).json({ message: error.message });
   }
 });
 
 // EDIT ROUTINE
-router.put("/:id", roleValidation("user"), async (req, res, next) => {
+router.put("/", roleValidation("user"), async (req, res, next) => {
   try {
-    const { id } = req.params;
-    await routineService.editRoutine(req.user, req.body, id);
+    await routineService.editRoutine(req.user, req.body);
     res.sendStatus(204);
   } catch (error) {
-    res.sendStatus(400).json({ message: error.message });
+    res.status(400).json({ message: error.message });
   }
 });
 
@@ -52,7 +51,7 @@ router.delete("/", roleValidation("user"), async (req, res, next) => {
     await routineService.removeRoutine(req.user, id);
     res.sendStatus(201);
   } catch (error) {
-    res.sendStatus(400).json({ message: error.message });
+    res.status(400).json({ message: error.message });
   }
 });
 

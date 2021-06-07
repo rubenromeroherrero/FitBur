@@ -9,7 +9,7 @@ router.get("/all", roleValidation("user"), async (req, res, next) => {
     const activities = await activityService.getAllActivities();
     res.status(200).json(activities);
   } catch (error) {
-    res.sendStatus(400).json({ message: error.message });
+    res.status(400).json({ message: error.message });
   }
 });
 
@@ -20,7 +20,7 @@ router.get("/:id", roleValidation("user"), async (req, res, next) => {
     const activity = await activityService.getActivity(req.user, id);
     res.status(200).json(activity);
   } catch (error) {
-    res.sendStatus(400).json({ message: error.message });
+    res.status(400).json({ message: error.message });
   }
 });
 
@@ -30,18 +30,17 @@ router.post("/", roleValidation("user"), async (req, res, next) => {
     await activityService.createActivity(req.body);
     res.sendStatus(201);
   } catch (error) {
-    res.sendStatus(400).json({ message: error.message });
+    res.status(400).json({ message: error.message });
   }
 });
 
 // EDIT ACTIVITY
-router.put("/:id", roleValidation("user"), async (req, res, next) => {
+router.put("/", roleValidation("user"), async (req, res, next) => {
   try {
-    const { id } = req.params;
-    await activityService.editActivity(req.user, req.body, id);
+    await activityService.editActivity(req.user, req.body);
     res.sendStatus(204);
   } catch (error) {
-    res.sendStatus(400).json({ message: error.message });
+    res.status(400).json({ message: error.message });
   }
 });
 
@@ -52,7 +51,7 @@ router.delete("/", roleValidation("user"), async (req, res, next) => {
     await activityService.removeActivity(req.user, id);
     res.sendStatus(201);
   } catch (error) {
-    res.sendStatus(400).json({ message: error.message });
+    res.status(400).json({ message: error.message });
   }
 });
 

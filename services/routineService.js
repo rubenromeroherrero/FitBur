@@ -24,7 +24,9 @@ exports.getRoutineById = async (user, id) => {
     routine.visibility !== "public" &&
     user.role !== "admin"
   )
-    throw new Error();
+    throw new Error(
+      "You can't watch this routine, because it's private. You must logging with correctly account"
+    );
 
   return routine.toJSON();
 };
@@ -33,27 +35,25 @@ exports.getRoutineById = async (user, id) => {
 exports.createRoutine = async (routine) => {
   const routineValidation = await insertRoutineSchema.validateAsync(routine);
 
-  if (!routineValidation) throw new Error();
-
   await routineRepository.insertRoutine(routineValidation);
 };
 
 // EDIT ROUTINE
-exports.editRoutine = async (user, routineDetails, routineId) => {
+exports.editRoutine = async (user, { id, ...routineDetails }) => {
   //comprobamos la existencia de esa rutina
-  const routine = await routineRepository.findRoutineById(routineId);
+  const routine = await routineRepository.findRoutineById(id);
 
   if (!routine) throw new Error();
 
   // validamos que la info que introduce es correcta/filtro
   const checkRoutine = await updateRoutineSchema.validateAsync(routineDetails);
 
-  if (!checkRoutine) throw new Error();
+  //if (!checkRoutine) throw new Error(); --> no hace falta en los JOI, lanzan error auto
 
   // controlar que la rutina pertenece al usuario que está queriendo editarla
   if (routine.UserId !== user.id) throw new Error(401);
 
-  await routineRepository.updateRoutine(routineId, checkRoutine);
+  await routineRepository.updateRoutine(id, checkRoutine);
 };
 
 // DELETE ROUTINE

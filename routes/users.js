@@ -9,7 +9,7 @@ router.post("/signup", async (req, res, next) => {
     await userService.signup(req.body);
     res.sendStatus(201);
   } catch (error) {
-    res.sendStatus(400).json({ message: error.message });
+    res.status(400).json({ message: error.message });
   }
 });
 
@@ -21,7 +21,7 @@ router.post("/login", async (req, res, next) => {
     // mostrar token
     res.status(200).json(user);
   } catch (error) {
-    res.sendStatus(400).json({ message: error.message });
+    res.status(400).json({ message: error.message });
   }
 });
 
@@ -31,10 +31,11 @@ router.get("/all", roleValidation(""), async (req, res, next) => {
     const user = await userService.getAllUsers();
     res.status(200).json(user);
   } catch (error) {
-    res.sendStatus(400).json({ message: error.message });
+    res.status(400).json({ message: error.message });
   }
 });
 
+// LOS GET NO TIENEN BODY!!
 // GET ONE USER --> sin password, porque lo tenemos definido en la entity User
 router.get("/:id", roleValidation(""), async (req, res, next) => {
   try {
@@ -42,7 +43,7 @@ router.get("/:id", roleValidation(""), async (req, res, next) => {
     const user = await userService.getUser(id);
     res.status(200).json(user);
   } catch (error) {
-    res.sendStatus(400).json({ message: error.message });
+    res.status(400).json({ message: error.message });
   }
 });
 
@@ -55,7 +56,7 @@ router.put("/", roleValidation("user"), async (req, res, next) => {
     await userService.editUser(id, req.body);
     res.sendStatus(204);
   } catch (error) {
-    res.sendStatus(400).json({ message: error.message });
+    res.status(400).json({ message: error.message });
   }
 });
 
@@ -65,7 +66,7 @@ router.delete("/", roleValidation("user"), async (req, res, next) => {
     await userService.removeUser(req.user);
     res.sendStatus(201);
   } catch (error) {
-    res.sendStatus(400).json({ message: error.message });
+    res.status(400).json({ message: error.message });
   }
 });
 

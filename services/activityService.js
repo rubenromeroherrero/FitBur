@@ -21,7 +21,7 @@ exports.getActivity = async (user, id) => {
     activityDb.visibility !== "public" &&
     user.role !== "admin"
   )
-    throw new Error();
+    throw new Error("aaa");
 
   // // comprobamos que esa actividad es del usuario que la solicita
   // if (activityDb.UserId !== user.id)
@@ -41,7 +41,7 @@ exports.createActivity = async (activity) => {
 };
 
 // EDIT ACTIVITY
-exports.editActivity = async (user, activityDetails, id) => {
+exports.editActivity = async (user, { id, ...activityDetails }) => {
   const activityValidation = await activityRepository.findActivityById(id);
 
   if (!activityValidation) throw new Error();
@@ -51,12 +51,10 @@ exports.editActivity = async (user, activityDetails, id) => {
     activityDetails
   );
 
-  if (!checkActivity) throw new Error();
-
   // comprobar que pertenece al usuario la actividad
   if (activityValidation.UserId !== user.id) throw new Error();
 
-  await activityRepository.updateActivity(activityDetails, id);
+  await activityRepository.updateActivity(id, checkActivity);
 };
 
 // DELETE ACTIVITY

@@ -29,7 +29,7 @@ exports.insertActivity = async (activity) => {
 };
 
 // EDIT
-exports.updateActivity = async (activityDetails, id) => {
+exports.updateActivity = async (id, activityDetails) => {
   return await Activity.update(activityDetails, { where: { id } });
 };
 

@@ -39,7 +39,7 @@ exports.createComment = async (comment) => {
 };
 
 // EDIT COMMENT
-exports.editComment = async (user, commentDetails, id) => {
+exports.editComment = async (user, { id, ...commentDetails }) => {
   const commentDb = await commentRepository.findCommentById(id);
 
   if (!commentDb) throw new Error();
@@ -48,11 +48,9 @@ exports.editComment = async (user, commentDetails, id) => {
     commentDetails
   );
 
-  if (!commentValidation) throw new Error();
-
   if (commentDb.UserId !== user.id) throw new Error();
 
-  await commentRepository.updateComment(commentValidation, commentDb.id);
+  await commentRepository.updateComment(commentValidation, id);
 };
 
 // DELETE COMMENT
@@ -63,5 +61,5 @@ exports.removeComment = async (user, id) => {
 
   if (user.id !== comment.UserId) throw new Error();
 
-  await commentRepository.deleteComment(comment.id);
+  await commentRepository.deleteComment(id);
 };
