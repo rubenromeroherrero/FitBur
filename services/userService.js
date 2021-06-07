@@ -49,11 +49,8 @@ exports.getAllUsers = async () => {
 };
 
 // GET ONE USER
-exports.getUser = async (user) => {
-  // obtenemos el id del token
-  const userId = user.id;
-
-  const userDb = await userRepository.findUserById(userId);
+exports.getUser = async (id) => {
+  const userDb = await userRepository.findUserById(id);
 
   if (!userDb) throw new Error();
 

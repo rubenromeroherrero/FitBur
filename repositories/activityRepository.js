@@ -6,14 +6,21 @@ const User = require("../models/User");
 exports.findAllActivities = async () => {
   return await Activity.findAll({
     where: { visibility: ["public"] },
-    include: { model: User, attributes: ["name"] },
-    include: { model: Routine, attributes: ["title"] },
+    include: [
+      { model: User, attributes: ["name"] },
+      { model: Routine, attributes: ["title"] },
+    ],
   });
 };
 
 // FIND ACTIVITY
 exports.findActivityById = async (id) => {
-  return await Activity.findByPk(id);
+  return await Activity.findByPk(id, {
+    include: [
+      { model: User, attributes: ["name"] },
+      { model: Routine, attributes: ["title"] },
+    ],
+  });
 };
 
 // INSERT

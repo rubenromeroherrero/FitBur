@@ -12,15 +12,18 @@ exports.getAllRoutines = async () => {
 // --> buscar todos los posts del usuario loggeado ???????
 
 // GET ONE ROUTINE
-exports.getRoutineById = async (id) => {
+exports.getRoutineById = async (user, id) => {
   // comprobamos que esa rutina se encuentre en la DB
   const routine = await routineRepository.findRoutineById(id);
 
   if (!routine) throw new Error();
 
-  // comprobamos que sea publica
-  if (routine.visibility === "private")
-    throw new Error("You don't have permission");
+  if (
+    routine.UserId !== user.id &&
+    routine.visibility !== "public" &&
+    user.role !== "admin"
+  )
+    throw new Error();
 
   return routine.toJSON();
 };

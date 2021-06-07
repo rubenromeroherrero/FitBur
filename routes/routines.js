@@ -14,10 +14,10 @@ router.get("/all", roleValidation("user"), async (req, res, next) => {
 });
 
 // GET ONE ROUTINE
-router.get("/", roleValidation("user"), async (req, res, next) => {
+router.get("/:id", roleValidation("user"), async (req, res, next) => {
   try {
-    const { id } = req.body;
-    const user = await routineService.getRoutineById(id);
+    const { id } = req.params;
+    const user = await routineService.getRoutineById(req.user, id);
     res.status(200).json(user);
   } catch (error) {
     res.sendStatus(400).json({ message: error.message });

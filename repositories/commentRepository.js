@@ -5,9 +5,9 @@ const User = require("../models/User");
 // FIND ALL COMMENTS
 exports.findAllComments = async () => {
   return await Comment.findAll({
+    // así sólo puede verlo el usuario que lo crea o el admin
     where: { visibility: ["public"] },
-
-    include: { model: Routine },
+    include: [{ model: User, attributes: ["name"] }, { model: Routine }],
   });
 };
 

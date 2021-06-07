@@ -14,9 +14,9 @@ router.get("/all", roleValidation("user"), async (req, res, next) => {
 });
 
 // GET ONE ACTIVITY
-router.get("/", roleValidation("user"), async (req, res, next) => {
+router.get("/:id", roleValidation("user"), async (req, res, next) => {
   try {
-    const { id } = req.body;
+    const { id } = req.params;
     const activity = await activityService.getActivity(req.user, id);
     res.status(200).json(activity);
   } catch (error) {

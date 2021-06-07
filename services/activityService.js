@@ -16,9 +16,16 @@ exports.getActivity = async (user, id) => {
 
   if (!activityDb) throw new Error();
 
-  // comprobamos que esa actividad es del usuario que la solicita
-  if (activityDb.UserId !== user.id)
-    throw new Error("You don't have permission to watch this activity");
+  if (
+    activityDb.UserId !== user.id &&
+    activityDb.visibility !== "public" &&
+    user.role !== "admin"
+  )
+    throw new Error();
+
+  // // comprobamos que esa actividad es del usuario que la solicita
+  // if (activityDb.UserId !== user.id)
+  //   throw new Error("You don't have permission to watch this activity");
 
   return activityDb.toJSON();
 };

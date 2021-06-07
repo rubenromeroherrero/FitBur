@@ -17,6 +17,15 @@ exports.getComment = async (user, id) => {
 
   if (!comment) throw new Error();
 
+  // si la persona loggeada quiere acceder a un comentario privado de otra persona lanzamos error
+  // en el caso de ser admin le admitimos ver los comments (privados y públicos)
+  if (
+    comment.UserId !== user.id &&
+    comment.visibility !== "public" &&
+    user.role !== "admin"
+  )
+    throw new Error();
+
   return comment.toJSON();
 };
 

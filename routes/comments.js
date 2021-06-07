@@ -14,9 +14,9 @@ router.get("/all", roleValidation("user"), async (req, res, next) => {
 });
 
 // GET COMMENT
-router.get("/", roleValidation("user"), async (req, res, next) => {
+router.get("/:id", roleValidation("user"), async (req, res, next) => {
   try {
-    const { id } = req.body;
+    const { id } = req.params;
     const comment = await commentService.getComment(req.user, id);
     res.status(200).json(comment);
   } catch (error) {

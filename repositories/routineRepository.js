@@ -1,18 +1,9 @@
 // conexion con DB
 const User = require("../models/User");
 const Routine = require("../models/Routine");
+const Activity = require("../models/Activity");
 const Comment = require("../models/Comment");
 // const { ROUTINE_VISIBILITY } = require("../util/constants");
-
-// MODELO REPRESENTACION USUARIO EN ROUTINE
-// const info = {
-//   include: [
-//     {
-//       model: User,
-//       attributes: ["name"],
-//     },
-//   ],
-// };
 
 // --> buscar todos los posts del usuario loggeado?????
 
@@ -21,12 +12,23 @@ exports.findAllRoutines = async () => {
   // filtro solo los public
   return await Routine.findAll({
     where: { visibility: ["public"] }, // si quito esto el admin puede ver todas ???
-    include: { model: Comment, include: { model: User, attributes: ["name"] } },
+    include: [
+      { model: User, attributes: ["name"] },
+      { model: Comment },
+      { model: Activity },
+    ],
   });
 };
 
 exports.findRoutineById = async (id) => {
-  return await Routine.findByPk(id);
+  return await Routine.findByPk(id, {
+    where: { visibility: ["public"] }, // si quito esto el admin puede ver todas ???
+    include: [
+      { model: User, attributes: ["name"] },
+      { model: Comment },
+      { model: Activity },
+    ],
+  });
 };
 
 // INSERT
