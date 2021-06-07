@@ -11,7 +11,7 @@ const Comment = require("../models/Comment");
 exports.findAllRoutines = async () => {
   // filtro solo los public
   return await Routine.findAll({
-    where: { visibility: ["public"] }, // si quito esto el admin puede ver todas ???
+    // where: { visibility: ["public"] }, // si quito esto el admin puede ver todas ???
     include: [
       { model: User, attributes: ["name"] },
       { model: Comment },

@@ -3,10 +3,10 @@ const router = express.Router();
 const roleValidation = require("../middlewares/roleValidation");
 const commentService = require("../services/commentService");
 
-// GET COMMENTS
-router.get("/all", roleValidation("user"), async (req, res, next) => {
+// GET COMMENTS --> privados?? --> solo filtramos que sea admin
+router.get("/all", roleValidation(""), async (req, res, next) => {
   try {
-    const comments = await commentService.getAllComments();
+    const comments = await commentService.getAllComments(req.user);
     res.status(200).json(comments);
   } catch (error) {
     res.sendStatus(400).json({ message: error.message });

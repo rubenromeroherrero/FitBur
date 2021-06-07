@@ -18,6 +18,7 @@ exports.getRoutineById = async (user, id) => {
 
   if (!routine) throw new Error();
 
+  // Controlamos que si no es el usuario de la rutina, y esta privada, no la pueda ver, salvo que sea admin
   if (
     routine.UserId !== user.id &&
     routine.visibility !== "public" &&

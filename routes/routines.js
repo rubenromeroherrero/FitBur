@@ -3,8 +3,8 @@ const roleValidation = require("../middlewares/roleValidation");
 const router = express.Router();
 const routineService = require("../services/routineService");
 
-// GET ALL ROUTINES
-router.get("/all", roleValidation("user"), async (req, res, next) => {
+// GET ALL ROUTINES --> solo el admin (private, public)
+router.get("/all", roleValidation(""), async (req, res, next) => {
   try {
     const routines = await routineService.getAllRoutines();
     res.status(200).json(routines);
