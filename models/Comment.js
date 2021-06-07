@@ -1,5 +1,6 @@
 const { DataTypes } = require("sequelize");
 const dbConnection = require("../config/db");
+const { COMMENT_VISIBILITY } = require("../util/constants");
 
 const Comment = dbConnection.define("Comment", {
   id: {
@@ -16,6 +17,10 @@ const Comment = dbConnection.define("Comment", {
   },
   score: {
     type: DataTypes.TINYINT.UNSIGNED,
+  },
+  visibility: {
+    type: DataTypes.ENUM(Object.values(COMMENT_VISIBILITY)),
+    defaultValue: COMMENT_VISIBILITY.PUBLIC,
   },
 });
 

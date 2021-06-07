@@ -11,6 +11,7 @@ var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 const routinesRouter = require("./routes/routines");
 const activitiesRouter = require("./routes/activities");
+const commentsRouter = require("./routes/comments");
 // MIDDLEWARE -> validaciones para token -->  ???????
 const tokenValidation = require("./middlewares/tokenValidation");
 
@@ -30,5 +31,6 @@ app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/routines", routinesRouter);
 app.use("/activities", activitiesRouter);
+app.use("/comments", commentsRouter);
 
 module.exports = app;

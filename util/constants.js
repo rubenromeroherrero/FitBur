@@ -13,3 +13,8 @@ exports.ACTIVITY_VISIBILITY = Object.freeze({
   PUBLIC: "public",
   PRIVATE: "private",
 });
+
+exports.COMMENT_VISIBILITY = Object.freeze({
+  PUBLIC: "public",
+  PRIVATE: "private",
+});

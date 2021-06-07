@@ -42,6 +42,7 @@
   - **Contenido** - publico/requerido
   - **Valoración** - publico/requerido (0-5 puntos)
   - **UserId** - publico/requerido (extraemos el nickname del UserId)
+  - **Estado** - obligatorio// podrá ser pública o privada, si desea que lo puedan ver los demás usuarios
 
 ### 2.-Modelo negocio:
 

@@ -27,8 +27,23 @@ const loadModels = () => {
   });
   Activity.belongsTo(Routine);
   Activity.belongsTo(User);
+  //----- user<-->post<-->comments
+  Routine.hasMany(Comment, {
+    foreignKey: {
+      allowNull: false,
+    },
+  });
+  // ???
+  User.hasMany(Comment, {
+    foreignKey: {
+      allowNull: false,
+    },
+  });
 
-  dbConnection.sync().then(() => console.log("All models loaded"));
+  Comment.belongsTo(Routine);
+  Comment.belongsTo(User);
+
+  dbConnection.sync().then(() => console.log("Fitbur app is loaded"));
 };
 
 module.exports = loadModels;

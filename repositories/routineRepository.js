@@ -1,6 +1,7 @@
 // conexion con DB
 const User = require("../models/User");
 const Routine = require("../models/Routine");
+const Comment = require("../models/Comment");
 // const { ROUTINE_VISIBILITY } = require("../util/constants");
 
 // MODELO REPRESENTACION USUARIO EN ROUTINE
@@ -19,8 +20,8 @@ const Routine = require("../models/Routine");
 exports.findAllRoutines = async () => {
   // filtro solo los public
   return await Routine.findAll({
-    where: { visibility: ["public"] },
-    include: { model: User, attributes: ["name"] },
+    where: { visibility: ["public"] }, // si quito esto el admin puede ver todas ???
+    include: { model: Comment, include: { model: User, attributes: ["name"] } },
   });
 };
 
