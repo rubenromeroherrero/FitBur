@@ -4,7 +4,7 @@
 
 ### 1.- Entidades:
 
-- `.Usuarios` - Los cuales, van a poder signup en la app y hacer login. - Van a requerir de los siguientes datos
+- `.Usuarios` - Los cuales, van a poder hacer signup en la app y hacer login. - Van a requerir de los siguientes datos
   personales:
 
   - **UserId**

@@ -26,7 +26,7 @@ router.post("/login", async (req, res, next) => {
 });
 
 // GET ALL USERS --> solo el admin puede solicitar ver todos los usuarios de la app
-router.get("/all", roleValidation(""), async (req, res, next) => {
+router.get("/all", roleValidation("admin"), async (req, res, next) => {
   try {
     const user = await userService.getAllUsers();
     res.status(200).json(user);
@@ -37,7 +37,7 @@ router.get("/all", roleValidation(""), async (req, res, next) => {
 
 // LOS GET NO TIENEN BODY!!
 // GET ONE USER --> sin password, porque lo tenemos definido en la entity User
-router.get("/:id", roleValidation(""), async (req, res, next) => {
+router.get("/:id", roleValidation("admin"), async (req, res, next) => {
   try {
     const { id } = req.params;
     const user = await userService.getUser(id);

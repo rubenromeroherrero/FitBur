@@ -47,12 +47,10 @@ exports.editRoutine = async (user, { id, ...routineDetails }) => {
   //comprobamos la existencia de esa rutina
   const routine = await routineRepository.findRoutineById(id);
 
-  if (!routine) throw new HttpError(404, "Routine not found in databases");
+  if (!routine) throw new HttpError("Routine not found in databases");
 
   // validamos que la info que introduce es correcta/filtro
   const checkRoutine = await updateRoutineSchema.validateAsync(routineDetails);
-
-  //if (!checkRoutine) throw new Error(); --> no hace falta en los JOI, lanzan error auto
 
   // controlar que la rutina pertenece al usuario que está queriendo editarla
   if (routine.UserId !== user.id)
