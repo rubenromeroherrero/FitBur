@@ -19,7 +19,7 @@ exports.getRoutineById = async (user, id) => {
   // comprobamos que esa rutina se encuentre en la DB
   const routine = await routineRepository.findRoutineById(id);
 
-  if (!routine) throw new HttpError(404, "Routine not found in databases");
+  if (!routine) throw new HttpError(404, "Routine not found");
 
   // Controlamos que si no es el usuario de la rutina, y esta privada, no la pueda ver, salvo que sea admin
   if (
@@ -54,10 +54,7 @@ exports.editRoutine = async (user, { id, ...routineDetails }) => {
 
   // controlar que la rutina pertenece al usuario que está queriendo editarla
   if (routine.UserId !== user.id)
-    throw new HttpError(
-      401,
-      "Routine you want to edit isn't yours. Please, you need logging with correct account"
-    );
+    throw new HttpError(401, "Please, you need logging with correct account");
 
   await routineRepository.updateRoutine(id, checkRoutine);
 };
@@ -71,10 +68,7 @@ exports.removeRoutine = async (user, id) => {
 
   // comprobacion de que esa rutina sea del usuario logged
   if (routine.UserId !== user.id)
-    throw new HttpError(
-      401,
-      "Routine you want to edit isn't yours. Please, you need logging with correct account"
-    );
+    throw new HttpError(401, "Please, you need logging with correct account");
 
   await routineRepository.deleteRoutine(routine.id);
 };

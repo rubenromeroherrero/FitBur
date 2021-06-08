@@ -17,7 +17,7 @@ exports.getActivity = async (user, id) => {
   // comprobamos que existe esa actividad en la DB
   const activityDb = await activityRepository.findActivityById(id);
 
-  if (!activityDb) throw new HttpError(404, "Activity not found in databases");
+  if (!activityDb) throw new HttpError(404, "Activity not found");
 
   if (
     activityDb.UserId !== user.id &&
@@ -44,8 +44,7 @@ exports.createActivity = async (activity) => {
 exports.editActivity = async (user, { id, ...activityDetails }) => {
   const activityValidation = await activityRepository.findActivityById(id);
 
-  if (!activityValidation)
-    throw new HttpError(404, "Activity not found in databases");
+  if (!activityValidation) throw new HttpError(404, "Activity not found");
 
   // validamos la info introducida sea correcta
   const checkActivity = await updateActivitySchema.validateAsync(
@@ -54,10 +53,7 @@ exports.editActivity = async (user, { id, ...activityDetails }) => {
 
   // comprobar que pertenece al usuario la actividad
   if (activityValidation.UserId !== user.id)
-    throw new HttpError(
-      401,
-      "Activity you want to edit isn't yours. Please, you need logging with correct account"
-    );
+    throw new HttpError(401, "Please, you need logging with correct account");
 
   await activityRepository.updateActivity(id, checkActivity);
 };
@@ -67,14 +63,11 @@ exports.removeActivity = async (user, id) => {
   // validar que existe esa actividad
   const activityDb = await activityRepository.findActivityById(id);
 
-  if (!activityDb) throw new HttpError(404, "Activity not found in databases");
+  if (!activityDb) throw new HttpError(404, "Activity not found");
 
   // comprobar que sea del usuario que lo solicita
   if (activityDb.UserId !== user.id)
-    throw new HttpError(
-      401,
-      "Activity you want to edit isn't yours. Please, you need logging with correct account"
-    );
+    throw new HttpError(401, "Please, you need logging with correct account");
 
   await activityRepository.deleteActivity(activityDb.id);
 };

@@ -1,4 +1,4 @@
-# **Fitbur App**
+# **Fitbur Api**
 
 ## **Plataforma para hacer un seguimiento de tu ejercicio físico**
 

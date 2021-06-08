@@ -17,7 +17,7 @@ exports.getComment = async (user, id) => {
   // comprobamos si existe ese comment
   const commentDb = await commentRepository.findCommentById(id);
 
-  if (!commentDb) throw new HttpError(404, "Comment not found in databases");
+  if (!commentDb) throw new HttpError(404, "Comment not found");
 
   if (
     commentDb.UserId !== user.id &&
@@ -56,10 +56,7 @@ exports.editComment = async (user, { id, ...commentDetails }) => {
   );
 
   if (commentDb.UserId !== user.id)
-    throw new HttpError(
-      401,
-      "Comment you want to edit isn't yours. Please, you need logging with correct account"
-    );
+    throw new HttpError(401, "Please, you need logging with correct account");
 
   await commentRepository.updateComment(commentValidation, id);
 };
@@ -68,13 +65,10 @@ exports.editComment = async (user, { id, ...commentDetails }) => {
 exports.removeComment = async (user, id) => {
   const comment = await commentRepository.findCommentById(id);
 
-  if (!comment) throw new HttpError(404, "Comment not found in databases");
+  if (!comment) throw new HttpError(404, "Comment not found");
 
   if (user.id !== comment.UserId)
-    throw new HttpError(
-      401,
-      "Comment you want to edit isn't yours. Please, you need logging with correct account"
-    );
+    throw new HttpError(401, "Please, you need logging with correct account");
 
   await commentRepository.deleteComment(id);
 };
