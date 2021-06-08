@@ -7,7 +7,20 @@ exports.findAllComments = async (filter) => {
   const where = filter ? { visibility: "public" } : {};
   return await Comment.findAll({
     where,
-    include: [{ model: User, attributes: ["name"] }, { model: Routine }],
+    include: [
+      { model: User, attributes: ["name"] },
+      {
+        model: Routine,
+        attributes: [
+          "title",
+          "description",
+          "duration",
+          "date",
+          "distance",
+          "visibility",
+        ],
+      },
+    ],
   });
 };
 
@@ -15,7 +28,20 @@ exports.findAllComments = async (filter) => {
 exports.findCommentById = async (id) => {
   return await Comment.findByPk(id, {
     where: { visibility: ["public"] },
-    include: [{ model: User, attributes: ["name"] }, { model: Routine }],
+    include: [
+      { model: User, attributes: ["name"] },
+      {
+        model: Routine,
+        attributes: [
+          "title",
+          "description",
+          "duration",
+          "date",
+          "distance",
+          "visibility",
+        ],
+      },
+    ],
   });
 };
 

@@ -9,7 +9,17 @@ exports.findAllActivities = async (filter) => {
     where,
     include: [
       { model: User, attributes: ["name"] },
-      { model: Routine, attributes: ["title"] },
+      {
+        model: Routine,
+        attributes: [
+          "title",
+          "description",
+          "duration",
+          "date",
+          "distance",
+          "visibility",
+        ],
+      },
     ],
   });
 };
@@ -19,7 +29,17 @@ exports.findActivityById = async (id) => {
   return await Activity.findByPk(id, {
     include: [
       { model: User, attributes: ["name"] },
-      { model: Routine, attributes: ["title"] },
+      {
+        model: Routine,
+        attributes: [
+          "title",
+          "description",
+          "duration",
+          "date",
+          "distance",
+          "visibility",
+        ],
+      },
     ],
   });
 };

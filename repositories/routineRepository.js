@@ -14,8 +14,14 @@ exports.findAllRoutines = async (filter) => {
     where,
     include: [
       { model: User, attributes: ["name"] },
-      { model: Comment },
-      { model: Activity },
+      {
+        model: Comment,
+        attributes: ["title", "content", "score", "visibility"],
+      },
+      {
+        model: Activity,
+        attributes: ["name", "serie", "replay", "repose", "visibility"],
+      },
     ],
   });
 };
@@ -25,7 +31,7 @@ exports.findRoutineById = async (id) => {
     where: { visibility: ["public"] }, // si quito esto el admin puede ver todas ???
     include: [
       { model: User, attributes: ["name"] },
-      { model: Comment },
+      { model: Comment, attributes: ["title", "content", "score"] },
       { model: Activity },
     ],
   });
