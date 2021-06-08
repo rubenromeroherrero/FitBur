@@ -1,0 +1,13 @@
+h1 {
+  color: red;
+}
+.container {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn {
+  margin: 1rem;
+}
