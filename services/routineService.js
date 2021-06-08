@@ -19,7 +19,7 @@ exports.getRoutineById = async (user, id) => {
   // comprobamos que esa rutina se encuentre en la DB
   const routine = await routineRepository.findRoutineById(id);
 
-  if (!routine) throw new Error("Routine not found in databases");
+  if (!routine) throw new HttpError(404, "Routine not found in databases");
 
   // Controlamos que si no es el usuario de la rutina, y esta privada, no la pueda ver, salvo que sea admin
   if (
@@ -27,7 +27,8 @@ exports.getRoutineById = async (user, id) => {
     routine.visibility !== "public" &&
     user.role !== "admin"
   )
-    throw new Error(
+    throw new HttpError(
+      401,
       "You can't watch this routine, because it's private. You must logging with correctly account"
     );
 
@@ -46,7 +47,7 @@ exports.editRoutine = async (user, { id, ...routineDetails }) => {
   //comprobamos la existencia de esa rutina
   const routine = await routineRepository.findRoutineById(id);
 
-  if (!routine) throw new HttpError(400, "Routine not found in databases");
+  if (!routine) throw new HttpError(404, "Routine not found in databases");
 
   // validamos que la info que introduce es correcta/filtro
   const checkRoutine = await updateRoutineSchema.validateAsync(routineDetails);
@@ -68,7 +69,7 @@ exports.removeRoutine = async (user, id) => {
   //Comprobamos la existencia de esa rutina
   const routine = await routineRepository.findRoutineById(id);
 
-  if (!routine) throw new Error();
+  if (!routine) throw new HttpError(404, "Routine not found in databases");
 
   // comprobacion de que esa rutina sea del usuario logged
   if (routine.UserId !== user.id)

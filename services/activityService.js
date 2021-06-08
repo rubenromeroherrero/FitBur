@@ -3,6 +3,7 @@ const {
   insertActivitySchema,
   updateActivitySchema,
 } = require("../validations/activityValidations");
+const HttpError = require("../util/httpError");
 
 // GET ALL ACTIVITIES
 exports.getAllActivities = async (user) => {
@@ -16,15 +17,16 @@ exports.getActivity = async (user, id) => {
   // comprobamos que existe esa actividad en la DB
   const activityDb = await activityRepository.findActivityById(id);
 
-  if (!activityDb) throw new Error();
+  if (!activityDb) throw new HttpError(404, "Activity not found in databases");
 
   if (
     activityDb.UserId !== user.id &&
     activityDb.visibility !== "public" &&
     user.role !== "admin"
   )
-    throw new Error(
-      "You can't watch this routine, because it's private. You must logging with correctly account"
+    throw new HttpError(
+      401,
+      "You can't watch this activity, because it's private. You must logging with correctly account"
     );
 
   return activityDb.toJSON();
@@ -35,8 +37,6 @@ exports.createActivity = async (activity) => {
   // validamos los datos introducidos
   const activityValidation = await insertActivitySchema.validateAsync(activity);
 
-  if (!activityValidation) throw new Error();
-
   await activityRepository.insertActivity(activityValidation);
 };
 
@@ -44,7 +44,8 @@ exports.createActivity = async (activity) => {
 exports.editActivity = async (user, { id, ...activityDetails }) => {
   const activityValidation = await activityRepository.findActivityById(id);
 
-  if (!activityValidation) throw new Error();
+  if (!activityValidation)
+    throw new HttpError(404, "Activity not found in databases");
 
   // validamos la info introducida sea correcta
   const checkActivity = await updateActivitySchema.validateAsync(
@@ -52,7 +53,11 @@ exports.editActivity = async (user, { id, ...activityDetails }) => {
   );
 
   // comprobar que pertenece al usuario la actividad
-  if (activityValidation.UserId !== user.id) throw new Error();
+  if (activityValidation.UserId !== user.id)
+    throw new HttpError(
+      401,
+      "Activity you want to edit isn't yours. Please, you need logging with correct account"
+    );
 
   await activityRepository.updateActivity(id, checkActivity);
 };
@@ -62,10 +67,14 @@ exports.removeActivity = async (user, id) => {
   // validar que existe esa actividad
   const activityDb = await activityRepository.findActivityById(id);
 
-  if (!activityDb) throw new Error();
+  if (!activityDb) throw new HttpError(404, "Activity not found in databases");
 
   // comprobar que sea del usuario que lo solicita
-  if (activityDb.UserId !== user.id) throw new Error();
+  if (activityDb.UserId !== user.id)
+    throw new HttpError(
+      401,
+      "Activity you want to edit isn't yours. Please, you need logging with correct account"
+    );
 
   await activityRepository.deleteActivity(activityDb.id);
 };

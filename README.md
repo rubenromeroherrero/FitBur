@@ -77,3 +77,14 @@
 
 - Dependencias de desarrollador:
   - **A)** - nodemon (-D)
+
+### 4.- Instalación
+
+1. Clone repositorio
+   ```sh
+   git clone https://github.com/rubenromeroherrero/FitBur-App.git
+   ```
+2. Install NPM packages
+   ```sh
+   npm install
+   ```
