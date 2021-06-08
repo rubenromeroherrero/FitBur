@@ -88,3 +88,7 @@
    ```sh
    npm install
    ```
+3. Install NPM packages
+   ```sh
+   npm run start:dev
+   ```
