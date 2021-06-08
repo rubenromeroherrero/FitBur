@@ -43,7 +43,7 @@ const loadModels = () => {
   Comment.belongsTo(Routine);
   Comment.belongsTo(User);
 
-  dbConnection.sync().then(() => console.log("Fitbur app is loaded"));
+  dbConnection.sync().then(() => console.log("Fitbur is loaded"));
 };
 
 module.exports = loadModels;
